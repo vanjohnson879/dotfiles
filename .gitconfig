@@ -1,0 +1,48 @@
+[alias]
+    co = checkout
+    cod = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+    ci = commit
+    st = status
+    br = branch
+    la = log --graph --all --color --decorate --oneline
+    lo = log --graph --all --color --decorate --oneline
+    lob = log --graph --color --decorate --oneline
+    ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset'
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    update = !git pull && git submodule update --init --recursive
+    d = log --date=short --pretty=format:'%h %ad | %s%d [%ae]'
+[user]
+    name = Van Johnson
+    email = van.johnson@meridianlink.com
+	signingkey = 9DD4C4D16DC6F06C5D361F6A961C788AEBA55EA3
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	pager = less -F -X
+[pull]
+	rebase = false
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    trustExitCode = true
+    cmd = open -W -a Meld --args \"$LOCAL\" \"$PWD/$REMOTE\"
+[init]
+    defaultBranch = main
+[merge]
+    tool = meld
+[mergetool]
+    prompt = false
+[mergetool "meld"]
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true
+[color]
+	ui = auto
